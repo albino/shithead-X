@@ -1,0 +1,4 @@
+*.weechatlog
+brain
+*.log
+trained_model/*

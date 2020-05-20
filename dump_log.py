@@ -16,7 +16,6 @@ if len(sys.argv) == 1:
     print("Usage:", sys.argv[0], "[log file] > [output file]", file=sys.stderr)
     exit()
 
-# Possible parsers: irssi weechat mirc
 logs = parse_file(sys.argv[1], parser=log_format)
 
 lines = 0

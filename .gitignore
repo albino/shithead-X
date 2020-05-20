@@ -1,4 +1,6 @@
 *.weechatlog
 brain
+brain.filtered
 *.log
 trained_model/*
+logs/*

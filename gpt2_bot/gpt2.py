@@ -49,6 +49,10 @@ def init(ircbot):
             lines = generated.split("\n")[len(history):]
             lines = lines[ :(num_lines) ]
 
+            if config["General"]["debug"] == "yes":
+                # Print some nice debug information to see what's happening with text generation
+                print("\n[GPT-2 DEBUG] max_length = "+str(generate_length)+"; generated text:\n\n"+generated+"\n")
+
             def transform_line(line):
                 # Quick hack to avoid highlighting people unnecessarily - could be improved if
                 # the bot continues to be problematic

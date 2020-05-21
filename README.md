@@ -88,7 +88,7 @@ The bot will only connect using SSL to servers with valid certificates. This is 
 **Q**: Can you send me a model to use?    
 **A**: No.
 
-**Q**: Can you help me with something else?
+**Q**: Can you help me with something else?    
 **A**: Yes. Open an issue, or contact me via email or IRC.
 
 ## Caveats
@@ -107,4 +107,4 @@ Please read the [ethics](https://github.com/minimaxir/aitextgen#ethics) section 
 
 ## License
 
-CC0; for more information please see the `LICENSE` file.
+CC0/Public Domain; for more information please see the `LICENSE` file.

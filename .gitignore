@@ -10,3 +10,4 @@ dist/*
 config.ini
 data.json
 *.pyc
+*.swp

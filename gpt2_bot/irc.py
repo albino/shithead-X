@@ -11,6 +11,7 @@ class IRCBot:
         self.ready = False
         self.init_done = False
         self.command_handlers = {}
+        self.privmsg_handler = None
 
         # Important note on config:
         #
@@ -111,7 +112,15 @@ class IRCBot:
         if msg.startswith(self.command_char):
             parts = msg.split()
             command = parts[0][1:]
+            if not command in self.command_handlers:
+                # Fail silently
+                return
             ret = self.command_handlers[command](self, parts[1:], sender)
+            if ret:
+                self.__say(ret, chan)
+
+        else:
+            ret = self.privmsg_handler(self, msg, sender)
             if ret:
                 self.__say(ret, chan)
 
@@ -123,3 +132,7 @@ class IRCBot:
     def register_command(self, name, func):
         self.command_handlers[name] = func
         self.__log("Registered command "+name)
+
+    def register_privmsg_handler(self, func):
+        self.privmsg_handler = func
+        self.__log("Registered PRIVMSG handler")

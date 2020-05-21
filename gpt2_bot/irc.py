@@ -1,5 +1,6 @@
 import ssl
 import socket
+import sys
 
 class IRCBot:
 
@@ -22,10 +23,10 @@ class IRCBot:
 
     def __debug(self, msg):
         if self.debug:
-            print("[DEBUG]", msg)
+            print("[DEBUG]", msg, file=sys.stderr)
 
     def __log(self, msg):
-        print("[IRC]", msg)
+        print("[IRC]", msg, file=sys.stderr)
 
     def start(self):
         ctx = ssl.create_default_context()

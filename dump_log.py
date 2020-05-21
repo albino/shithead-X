@@ -23,7 +23,7 @@ lines = 0
 for msg in logs:
     if msg.nick in ignore_nicks:
         continue
-    if not re.compile("[A-Za-z_]").search(msg.nick):
+    if not re.compile("[A-Za-z_0-9]").search(msg.nick):
         continue
     lines += 1
     print(msg.text)

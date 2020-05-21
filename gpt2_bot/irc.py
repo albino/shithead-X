@@ -2,24 +2,42 @@ import ssl
 import socket
 import sys
 
+import gpt2_bot.config
+
 class IRCBot:
 
-    def __init__(self, server, port, password, nick, username, realname, channels, ignore_list, command_char, debug):
-        self.server = server
-        self.port = port
-        self.password = password
-        self.nick = nick
-        self.username = username
-        self.realname = realname
-        self.channels = channels
-        self.ignore_list = ignore_list
-        self.command_char = command_char
-        self.debug = debug
+    def __init__(self, config_file):
 
         self.ready = False
         self.init_done = False
-
         self.command_handlers = {}
+
+        # Important note on config:
+        #
+        # This class implements two ways of providing stored data:
+        #
+        # self.config remains constant for the entire runtime of the bot
+        # - it should be treated as immutable
+        #
+        # self.data represents the most up-to-date data store, and is mutable
+        # - when modified save_data should be called.
+
+        self.config = gpt2_bot.config.config(config_file)
+        self.data = gpt2_bot.config.read_data(self.config["General"]["data_file"])
+
+        self.server = self.config["IRC"]["hostname"]
+        self.port = int(self.config["IRC"]["port"])
+        self.password = self.config["IRC"]["password"]
+        self.nick = self.config["IRC"]["nick"]
+        self.username = self.config["IRC"]["username"]
+        self.realname = self.config["IRC"]["realname"]
+        self.channels = self.config["IRC"]["channels"].split()
+        self.command_char = self.config["IRC"]["command_char"]
+        self.debug = self.config["General"]["debug"] == "yes"
+
+    def save_data(self):
+        self.__log("Saving data...")
+        gpt2_bot.config.save_data(self.config["General"]["data_file"], self.data)
 
     def __debug(self, msg):
         if self.debug:
@@ -85,7 +103,7 @@ class IRCBot:
                 self.__process_privmsg(msg, sender, chan)
 
     def __process_privmsg(self, msg, sender, chan):
-        if sender in self.ignore_list:
+        if sender in self.data["ignore_list"]:
             return
 
         self.__debug("Heard "+msg+" from "+sender+" in "+chan)
@@ -93,7 +111,7 @@ class IRCBot:
         if msg.startswith(self.command_char):
             parts = msg.split()
             command = parts[0][1:]
-            ret = self.command_handlers[command](parts[1:], sender)
+            ret = self.command_handlers[command](self, parts[1:], sender)
             if ret:
                 self.__say(ret, chan)
 

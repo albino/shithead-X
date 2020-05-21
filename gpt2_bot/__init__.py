@@ -1,7 +1,6 @@
-import gpt2_bot.irc, gpt2_bot.commands, gpt2_bot.gpt2, gpt2_bot.config
+import gpt2_bot.irc, gpt2_bot.commands, gpt2_bot.gpt2
 
 def assemble_bot(config_path):
-    config = gpt2_bot.config.config(config_path)
 
     ircbot = gpt2_bot.irc.IRCBot(config_path)
 

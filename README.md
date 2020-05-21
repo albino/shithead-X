@@ -95,7 +95,7 @@ The bot will only connect using SSL to servers with valid certificates. This is 
 
 * I don't know anything about artifical intelligence  
 * I don't know anything about Python  
-* This is a new project and it probably has some issues, I'm running it in a small channel myself so I will endeavour to get it working as well as I can. Bug reports, welcome, PRs even welcomer.
+* This is a new project and it probably has some issues, I'm running it in a small channel myself so I will endeavour to get it working as well as I can. Bug reports welcome, PRs even welcomer.
 
 ## Thanks
 

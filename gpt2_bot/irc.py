@@ -34,6 +34,7 @@ class IRCBot:
         self.realname = self.config["IRC"]["realname"]
         self.channels = self.config["IRC"]["channels"].split()
         self.command_char = self.config["IRC"]["command_char"]
+        self.identify_line = self.config["IRC"]["identify_line"]
         self.debug = self.config["General"]["debug"] == "yes"
 
     def save_data(self):
@@ -67,9 +68,7 @@ class IRCBot:
                 self.__process_line(line)
 
             if self.ready and not self.init_done:
-                for chan in self.channels:
-                    self.__send_line("JOIN :"+chan)
-
+                self.__irc_on_ready()
                 self.init_done = True
     
     def __send_line(self, line):
@@ -78,11 +77,17 @@ class IRCBot:
 
     def __irc_init(self):
         self.__debug("Introducing ourselves...")
-        self.__send_line("USER "+self.username+" 0 * "+self.username)
-        self.__send_line("NICK "+self.nick)
         if self.password:
             self.__send_line("PASS "+self.password)
+        self.__send_line("USER "+self.username+" 0 * "+self.username)
+        self.__send_line("NICK "+self.nick)
 
+    def __irc_on_ready(self):
+        if self.identify_line:
+            self.__send_line(self.identify_line)
+        for chan in self.channels:
+            self.__send_line("JOIN :"+chan)
+        
     def __process_line(self, line):
         if line.startswith("PING "):
             self.__send_line("PONG "+line[5:])

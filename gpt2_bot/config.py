@@ -3,6 +3,8 @@ import json
 
 initial_data = {
     "ignore_list": [],
+    "temp": 0.9,
+    "chattiness": 0,
 }
 
 def config(path):

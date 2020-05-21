@@ -116,7 +116,9 @@ class IRCBot:
                 self.__say(ret, chan)
 
     def __say(self, msg, chan):
-        self.__send_line("PRIVMSG "+chan+" :"+msg)
+        lines = msg.split("\n")
+        for l in lines:
+            self.__send_line("PRIVMSG "+chan+" :"+l)
 
     def register_command(self, name, func):
         self.command_handlers[name] = func

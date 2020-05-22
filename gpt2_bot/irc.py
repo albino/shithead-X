@@ -79,7 +79,7 @@ class IRCBot:
         self.__debug("Introducing ourselves...")
         if self.password:
             self.__send_line("PASS "+self.password)
-        self.__send_line("USER "+self.username+" 0 * "+self.username)
+        self.__send_line("USER "+self.username+" 0 * "+self.realname)
         self.__send_line("NICK "+self.nick)
 
     def __irc_on_ready(self):

@@ -93,6 +93,9 @@ class IRCBot:
             self.__send_line("PONG "+line[5:])
 
         parts = line.split()
+        if len(parts) < 2:
+            return
+
         if parts[1] == "376":
             # Do all networks send 376 when they are ready?
             self.__log("Successfully connected")

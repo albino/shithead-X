@@ -11,3 +11,4 @@ config.ini
 data.json
 *.pyc
 *.swp
+venv/*

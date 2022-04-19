@@ -16,6 +16,9 @@ Let's implement another chatbot, this time using the latest hip machine learning
 
 First, set up the dependencies:
 
+**Note**: This will pull in some outdated dependencies because of breaking API changes in newer versions.
+You really should use a `virtualenv` to avoid breaking your Python installation!
+
 ```bash
 # Best to use a python virtualenv
 python3 -m venv venv

@@ -1,4 +1,4 @@
 aitextgen == 0.1.1
 torch == 1.5.0
 transformers == 2.9.1
-pytorch-lightning == 0.7.6
+pytorch-lightning == 1.6.0

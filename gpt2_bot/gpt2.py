@@ -1,5 +1,6 @@
 from aitextgen import aitextgen
 import sys
+import os
 import random
 import functools
 import re
@@ -12,9 +13,10 @@ def init(ircbot):
     config = ircbot.config
 
     __log("Loading model...")
-    ai = aitextgen(model=config["GPT-2"]["model"], config=config["GPT-2"]["config"])
-    __log("Quantizing model...")
-    ai.quantize()
+    ai = aitextgen(model_folder=os.getcwd()+"/"+config["GPT-2"]["model"])
+    # TODO: what happened to pytorch quantization?
+#    __log("Quantizing model...")
+#    ai.quantize()
     __log("Done.")
 
     history = []

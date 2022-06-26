@@ -62,7 +62,11 @@ class IRCBot:
         # Main event loop
         while True:
             # HACK
-            lines = self.socket.recv(524288).decode("UTF-8")
+            raw_data = self.socket.recv(524288)
+            try:
+                lines = raw_data.decode("UTF-8")
+            except UnicodeDecodeError:
+                lines = raw_data.decode("latin-1")
             for line in lines.splitlines():
                 self.__debug(">>>"+line)
                 self.__process_line(line)
